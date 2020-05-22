@@ -4,6 +4,8 @@ import FontSizeBox from './FontSizeBox'
 import ColorBox from './ColorBox'
 import ChoiceBox from './ChoiceBox'
 
+import {BREAK_POINT_MOBILE} from './Data/size'
+
 class Menu extends Component {
     default_state = {
         search: "",
@@ -33,14 +35,15 @@ class Menu extends Component {
 
     render() {
         const {search, text, fontSize, color, language, category} = this.state
+        const {isPhone} = this.props
         return(
             <StyledMenu>
                 <i className="fas fa-search"></i>
-                <StyledSearch placeholder='Search' onChange={this.handleChange} name="search" value={search}/>
-                <StyledSearch placeholder='Type Something' onChange={this.handleChange} name="text" value={text}/>
+                {isPhone? null: <StyledSearch placeholder='Search' onChange={this.handleChange} name="search" value={search}/>}
+                <StyledSearch placeholder={"Type Something"} onChange={this.handleChange} name="text" value={text}/>
                 <FontSizeBox fontSize={fontSize} handleInnerChange={this.handleInnerChange}/>
-                <ColorBox color={color} handleInnerChange={this.handleInnerChange}/>
-                <ChoiceBox title="language" value={language} handleInnerChange={this.handleInnerChange}/>
+                {isPhone? null: <ColorBox color={color} handleInnerChange={this.handleInnerChange}/>}
+                {isPhone? null: <ChoiceBox title="language" value={language} handleInnerChange={this.handleInnerChange}/>}
                 <ChoiceBox title="category" value={category} handleInnerChange={this.handleInnerChange}/>
                 <StyledReset onClick={this.handleReset}><i className="fas fa-undo"></i></StyledReset>
             </StyledMenu>
@@ -60,19 +63,30 @@ const StyledMenu = styled.div`
     padding-right: 12px; 
     border: 1px solid #000000;
     border-radius: 90px;
+    font-size: 20px;
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px)  {
+        width: 360px;
+        height: 35px;
+        font-size: 15px;
+    }
 `
 const StyledSearch = styled.input`
     flex: 1;
     height: 80%;
-    width: 200px;
 
     border: none;
     border-right: 1px solid black;
     margin-left: 10px;
-    font-size: 20px;
 
+    font-size: 15px;
     &:active, &:focus {
         outline: none;
+    }
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px)  {
+        flex: none;
+        width: 130px;
+        font-size: 15px;
+        padding-right: 10px;
     }
 `
 const StyledReset = styled.div`

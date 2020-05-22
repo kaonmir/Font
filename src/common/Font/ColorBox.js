@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components'
 import { BlockPicker } from 'react-color'
 
+
 class ColorBox extends Component {
     constructor(props) {
         super(props)

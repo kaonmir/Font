@@ -9,6 +9,7 @@ class Font extends Component {
     default_fonts
     constructor(props) {
         super(props)
+        
         this.state = { 
             fonts: [],
             language: "all",
@@ -20,7 +21,7 @@ class Font extends Component {
             fontSize: "30px",
             color: "black",
             align: "start",
-        }
+        }        
     }
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll)
@@ -52,10 +53,6 @@ class Font extends Component {
     
     createBoxs() {
         let result = []
-        const default_font = {
-            family: "Amatic SC",
-            files: {'regular': "http://fonts.gstatic.com/s/amaticsc/v13/TUZyzwprpvBS1izr_vO0De6ecZQf1A.ttf"}
-        }
         const state = this.state
         const textProps = {
             text: state.text,
@@ -66,7 +63,7 @@ class Font extends Component {
         let { end, fonts } = this.state
         if(end > fonts.length) end = fonts.length
         for(let i = 0; i < end; i++) {
-            const font = fonts[i] || default_font
+            const font = fonts[i]
             result.push( 
                 // text, fontSize, color, align, family, fontUrl
                 <Box family={font['family']} fontUrl={font['files']['regular']} {...textProps}> </Box>
@@ -86,10 +83,11 @@ class Font extends Component {
         }
     }
     render() {
+        const {isPhone} = this.props
         return (
             <div>
-                <Menu handleInnerChange={this.handleInnerChange}/>
-                <StyledMain> 
+                <Menu isPhone={isPhone} handleInnerChange={this.handleInnerChange}/>
+                <StyledMain>
                     {this.createBoxs()}
                 </StyledMain>
             </div>

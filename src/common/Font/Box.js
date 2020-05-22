@@ -32,7 +32,7 @@ const StyledText = styled.div`
     font-family: '${props => props.family}', 'Roboto' !important;
     font-style: normal;
     font-weight: normal;
-    font-size: ${props => props.fontSize};
+    font-size: ${props => props.fontSize?(props.fontSize[0]==="-"?"30px":props.fontSize):"30px"};
     text-align: ${props => props.align};
 
     color: ${props => props.color};
@@ -49,8 +49,8 @@ const StyledBox = styled.div`
     
     width: 350px;
     height: 185px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 17px;
 `
 const StyledTitle = styled.div`
