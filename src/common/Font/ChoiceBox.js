@@ -22,12 +22,12 @@ const stylesMobile = {
     control: (provided) => ({
         ...provided,
         border: 0,
-        width: "30px",
+        width: "100px",
         height: "10px",
     }),
     menu: (provided, state) => ({
         ...provided, 
-        width: "80px",
+        width: "120px",
         fontSize: "13px",
     }),
 }
@@ -46,7 +46,8 @@ class ChoiceBox extends Component {
     handleChange = selected => this.props.handleInnerChange({[this.state.title]: selected['value']})        
     render() {
         const {title, option} = this.state
-        const isPhone = window.innerWidth < 400
+        const {isPhone} = this.props
+        
         return (
             <StyledSelectBox>
                 <Select 

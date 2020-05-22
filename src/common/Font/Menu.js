@@ -44,7 +44,7 @@ class Menu extends Component {
                 <FontSizeBox fontSize={fontSize} handleInnerChange={this.handleInnerChange}/>
                 {isPhone? null: <ColorBox color={color} handleInnerChange={this.handleInnerChange}/>}
                 {isPhone? null: <ChoiceBox title="language" value={language} handleInnerChange={this.handleInnerChange}/>}
-                <ChoiceBox title="category" value={category} handleInnerChange={this.handleInnerChange}/>
+                <ChoiceBox title="category" isPhone={isPhone} value={category} handleInnerChange={this.handleInnerChange}/>
                 <StyledReset onClick={this.handleReset}><i className="fas fa-undo"></i></StyledReset>
             </StyledMenu>
         )
@@ -58,7 +58,7 @@ const StyledMenu = styled.div`
 
     width: 800px;
     height: 45px;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 30px auto;
     padding-left: 12px; 
     padding-right: 12px; 
     border: 1px solid #000000;
@@ -71,14 +71,14 @@ const StyledMenu = styled.div`
     }
 `
 const StyledSearch = styled.input`
-    flex: 1;
+    width: 200px;
     height: 80%;
 
     border: none;
     border-right: 1px solid black;
     margin-left: 10px;
+    font-size: 20px;
 
-    font-size: 15px;
     &:active, &:focus {
         outline: none;
     }

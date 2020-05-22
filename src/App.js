@@ -11,8 +11,9 @@ class App extends Component {
   }
 
   checkPhone = () => {
-    if(window.innerWidth < BREAK_POINT_MOBILE) this.setState({isPhone: true})
+    if(window.innerWidth <= BREAK_POINT_MOBILE) this.setState({isPhone: true})
     else this.setState({isPhone: false})
+    
   }
 
   render() {
