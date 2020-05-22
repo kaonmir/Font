@@ -5,22 +5,26 @@ import ColorBox from './ColorBox'
 import ChoiceBox from './ChoiceBox'
 
 class Menu extends Component {
+    default_state = {
+        search: "",
+        text: "",
+        fontSize: "30px",
+        color: "#000000",
+
+        language: "all",
+        category: "all",
+    }
     constructor(props) {
         super(props)
-        this.state = {
-            search: "",
-            text: "",
-            fontSize: 30,
-            color: "#000000",
-
-            language: {},
-            categories: [],
-        }
+        this.state = this.default_state
     }
-
+    handleReset = (e) => {
+        this.setState(this.default_state)
+        this.props.handleInnerChange(this.default_state)
+    }
     handleChange = (e) => { 
         this.setState({[e.target.name]: e.target.value})
-        this.props.handleInnerChange(this.state)
+        this.props.handleInnerChange({[e.target.name]: e.target.value})
     }
     handleInnerChange = (innerJson) => {
         this.setState(innerJson)
@@ -28,7 +32,7 @@ class Menu extends Component {
     }
 
     render() {
-        const {search, text, fontSize, color} = this.state
+        const {search, text, fontSize, color, language, category} = this.state
         return(
             <StyledMenu>
                 <i className="fas fa-search"></i>
@@ -36,9 +40,9 @@ class Menu extends Component {
                 <StyledSearch placeholder='Type Something' onChange={this.handleChange} name="text" value={text}/>
                 <FontSizeBox fontSize={fontSize} handleInnerChange={this.handleInnerChange}/>
                 <ColorBox color={color} handleInnerChange={this.handleInnerChange}/>
-                <ChoiceBox title="Language" handleInnerChange={this.handleInnerChange}/>
-                <ChoiceBox title="Categories" isMulti={true} handleInnerChange={this.handleInnerChange}/>
-                <i className="fas fa-undo"></i>
+                <ChoiceBox title="language" value={language} handleInnerChange={this.handleInnerChange}/>
+                <ChoiceBox title="category" value={category} handleInnerChange={this.handleInnerChange}/>
+                <StyledReset onClick={this.handleReset}><i className="fas fa-undo"></i></StyledReset>
             </StyledMenu>
         )
     }
@@ -49,17 +53,16 @@ const StyledMenu = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    width: 70%;
+    width: 800px;
     height: 45px;
     margin: 0 auto 50px auto;
     padding-left: 12px; 
     padding-right: 12px; 
     border: 1px solid #000000;
-    box-sizing: border-box;
     border-radius: 90px;
 `
-
 const StyledSearch = styled.input`
+    flex: 1;
     height: 80%;
     width: 200px;
 
@@ -72,5 +75,11 @@ const StyledSearch = styled.input`
         outline: none;
     }
 `
-
+const StyledReset = styled.div`
+    margin-left: 10px;
+    &:hover {
+        color: #3a3a3a;
+        cursor: pointer;
+    }
+`
 export default Menu

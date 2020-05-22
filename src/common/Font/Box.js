@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 class Box extends Component {
     render() {
-        const {family, text} = this.props
+        let {family, text} = this.props
+        text = text || "The fast fox jumped over the lazy dog"
         return (
             <StyledBox>
                 <StyledTitle> {family} </StyledTitle>

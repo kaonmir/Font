@@ -5,21 +5,15 @@ import { BlockPicker } from 'react-color'
 class ColorBox extends Component {
     constructor(props) {
         super(props)
-        this.state = { 
-            color: this.props.color,
-            displayBlockPicker: false
-        }
+        this.state = {displayBlockPicker: false}
     }
 
     handleToggle = (e) => this.setState({displayBlockPicker: !this.state.displayBlockPicker})
-    handleColor = (color) => {
-        color = color['hex']
-        this.setState({color: color})
-        this.props.handleInnerChange({color: color})
-    }
+    handleColor = (color) => this.props.handleInnerChange({color: color['hex']})
 
     render() {
-        const {color, displayBlockPicker} = this.state
+        const {displayBlockPicker} = this.state
+        const {color} = this.props
         const cover = {
             position: 'fixed',
             top: '0px',

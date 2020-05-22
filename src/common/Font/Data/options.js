@@ -1,14 +1,15 @@
 module.exports = {
-    Language: [
+    language: [
         {value: "all", label: "All Languages"},
         {value: "latin", label: "Latin"},
         {value: "korean", label: "Korean"}
     ],
-    Categories: [
-        {value: "Serif", label: "Serif"},
-        {value: "Sans Serif", label: "Sans Serif"},
-        {value: "Display", label: "Display"},
-        {value: "Handwriting", label: "Handwriting"},
-        {value: "Monospace", label: "Monospace"},
+    category: [
+        {value: "all", label: "All Categories"},
+        {value: "serif", label: "Serif"},
+        {value: "sans-serif", label: "Sans Serif"},
+        {value: "display", label: "Display"},
+        {value: "handwriting", label: "Handwriting"},
+        {value: "monospace", label: "Monospace"},
     ]
 }

@@ -6,28 +6,49 @@ import Menu from '../common/Font/Menu';
 import {googleFontAPI} from '../private/private'
 
 class Font extends Component {
+    default_fonts
     constructor(props) {
         super(props)
         this.state = { 
             fonts: [],
+            language: "all",
+            category: "all",
             end: 27,
             
             search: "",
             text: "The fast fox jumped over the lazy dog",
             fontSize: "30px",
             color: "black",
-            align: "start"
+            align: "start",
         }
     }
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll)
-        //TODO key값 서버로 숨기기
-        fetch('https://www.googleapis.com/webfonts/v1/webfonts?key='+googleFontAPI)
+        fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${googleFontAPI}&sort=popularity`)
         .then(res => res.json())
-        .then(data => this.setState({fonts: data['items']}))
+        .then(data => {
+            this.setState({fonts: data['items']})
+            this.default_fonts = data['items']
+        })
     }
     componentWillUnmount() {window.removeEventListener("scroll", this.handleScroll)}
-    handleInnerChange = (innerJson) => this.setState(innerJson)
+    handleInnerChange = (innerJson) => {
+        this.setState(innerJson)
+        
+        if(innerJson.language || innerJson.category || innerJson.search !== undefined)
+        {
+            let fonts = this.default_fonts
+            const language = innerJson.language || this.state.language
+            const category = innerJson.category || this.state.category
+            const search = innerJson.search === undefined? this.state.search: innerJson.search
+            
+            if(category && category !== "all") fonts = fonts.filter(value => value['category'] === category)
+            if(language && language !== "all") fonts = fonts.filter(value => value['subsets'].includes(language))
+            if(search && search !== "") fonts = fonts.filter(value => value['family'].toLowerCase().includes(search.toLowerCase()))
+            
+            this.setState({fonts: fonts})
+        }
+    }
     
     createBoxs() {
         let result = []
@@ -42,7 +63,8 @@ class Font extends Component {
             color: state.color,
             align: state.align
         }
-        const { end, fonts } = this.state
+        let { end, fonts } = this.state
+        if(end > fonts.length) end = fonts.length
         for(let i = 0; i < end; i++) {
             const font = fonts[i] || default_font
             result.push( 

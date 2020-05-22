@@ -20,23 +20,17 @@ const styles = {
 class ChoiceBox extends Component {
     constructor(props) {
         super(props)
-        const {isMulti, title} = this.props
+        const {title} = this.props
+        const option = options[title]
         this.state = {
             title: title,
-            option: options[title],
-            isMulti: isMulti,
+            option: option,
         }
+        
     }
-    handleChange = selected => {
-        if(this.state.isMulti) {
-            let values = []
-            for(let select of selected) values.push(select['value'])
-            this.props.handleInnerChange({categories: values})            
-        }
-        else this.props.handleInnerChange({language: selected['value']})
-    }
+    handleChange = selected => this.props.handleInnerChange({[this.state.title]: selected['value']})        
     render() {
-        const {title, option, isMulti} = this.state
+        const {title, option} = this.state
         return (
             <StyledSelectBox>
                 <Select 
@@ -44,7 +38,6 @@ class ChoiceBox extends Component {
                     components={{ DropdownIndicator:() => null }}
                     placeholder={title}
                     styles={styles}
-                    isMulti={isMulti}
                     onChange={this.handleChange}
                 />
             </StyledSelectBox>
@@ -59,5 +52,6 @@ const StyledSelectBox = styled.div`
     height: 80%;
     width: 100px;
     border-right: 1px solid black;
+    text-transform:capitalize;
 `
 export default ChoiceBox
