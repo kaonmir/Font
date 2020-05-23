@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Box from '../common/Font/Box';
 import Menu from '../common/Font/Menu';
 
-import {googleFontAPI} from '../private/private'
+import fetch from "node-fetch"
 
 class Font extends Component {
     default_fonts
@@ -25,7 +25,7 @@ class Font extends Component {
     }
     componentDidMount() {
         window.addEventListener("scroll", this.handleScroll)
-        fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${googleFontAPI}&sort=popularity`)
+        fetch('http://font.kaonmir.xyz/api')
         .then(res => res.json())
         .then(data => {
             this.setState({fonts: data['items']})
