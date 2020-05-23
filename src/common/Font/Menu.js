@@ -57,17 +57,17 @@ const StyledMenu = styled.div`
     align-items: center;
 
     width: 800px;
-    height: 45px;
-    margin: 0 auto 30px auto;
-    padding-left: 12px; 
-    padding-right: 12px; 
+    height: 40px;
+    margin: 20px auto 30px auto;
+    padding: 0 12px 0 12px;
     border: 1px solid #000000;
     border-radius: 90px;
     font-size: 20px;
     @media only screen and (max-width: ${BREAK_POINT_MOBILE}px)  {
-        width: 360px;
+        width: 350px;
         height: 35px;
         font-size: 15px;
+        margin-top: 10px;
     }
 `
 const StyledSearch = styled.input`
@@ -84,7 +84,7 @@ const StyledSearch = styled.input`
     }
     @media only screen and (max-width: ${BREAK_POINT_MOBILE}px)  {
         flex: none;
-        width: 130px;
+        width: 125px;
         font-size: 15px;
         padding-right: 10px;
     }

@@ -4,6 +4,7 @@ import Box from '../common/Font/Box';
 import Menu from '../common/Font/Menu';
 
 import fetch from "node-fetch"
+import Head from '../common/Font/Head';
 
 class Font extends Component {
     default_fonts
@@ -47,7 +48,7 @@ class Font extends Component {
             if(language && language !== "all") fonts = fonts.filter(value => value['subsets'].includes(language))
             if(search && search !== "") fonts = fonts.filter(value => value['family'].toLowerCase().includes(search.toLowerCase()))
             
-            this.setState({fonts: fonts})
+            this.setState({fonts: fonts, end: 27})
         }
     }
     
@@ -77,15 +78,13 @@ class Font extends Component {
         const {innerHeight} = window
         const {scrollHeight} = document.body
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        if (scrollHeight - innerHeight - scrollTop < 100) {
-            this.setState({end: this.state.end + 27})
-            console.log("Almost!!")
-        }
+        if (scrollHeight - innerHeight - scrollTop < 100) this.setState({end: this.state.end + 27})
     }
     render() {
         const {isPhone} = this.props
         return (
             <div>
+                <Head isPhone={isPhone}/>
                 <Menu isPhone={isPhone} handleInnerChange={this.handleInnerChange}/>
                 <StyledMain>
                     {this.createBoxs()}
